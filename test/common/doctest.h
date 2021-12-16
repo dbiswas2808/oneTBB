@@ -394,8 +394,11 @@ DOCTEST_MSVC_SUPPRESS_WARNING(26812) // Prefer 'enum class' over 'enum'
 #define DOCTEST_GLOBAL_NO_WARNINGS(var)                                                            \
     DOCTEST_CLANG_SUPPRESS_WARNING_WITH_PUSH("-Wglobal-constructors")                              \
     DOCTEST_CLANG_SUPPRESS_WARNING("-Wunused-variable")                                            \
+    DOCTEST_MSVC_SUPPRESS_WARNING_WITH_PUSH(177)                                                   \
     static const int var DOCTEST_UNUSED // NOLINT(fuchsia-statically-constructed-objects,cert-err58-cpp)
-#define DOCTEST_GLOBAL_NO_WARNINGS_END() DOCTEST_CLANG_SUPPRESS_WARNING_POP
+#define DOCTEST_GLOBAL_NO_WARNINGS_END()                                                           \
+    DOCTEST_CLANG_SUPPRESS_WARNING_POP                                                             \
+    DOCTEST_MSVC_SUPPRESS_WARNING_POP
 
 #ifndef DOCTEST_BREAK_INTO_DEBUGGER
 // should probably take a look at https://github.com/scottt/debugbreak
@@ -4120,6 +4123,7 @@ namespace {
 
     DOCTEST_CLANG_SUPPRESS_WARNING_WITH_PUSH("-Wdeprecated-declarations")
     void color_to_stream(std::ostream& s, Color::Enum code) {
+        static_cast<void>(dummy_init_console_colors);
         static_cast<void>(s);    // for DOCTEST_CONFIG_COLORS_NONE or DOCTEST_CONFIG_COLORS_WINDOWS
         static_cast<void>(code); // for DOCTEST_CONFIG_COLORS_NONE
 #ifdef DOCTEST_CONFIG_COLORS_ANSI
