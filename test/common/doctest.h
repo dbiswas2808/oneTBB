@@ -410,7 +410,7 @@ DOCTEST_MSVC_SUPPRESS_WARNING(26812) // Prefer 'enum class' over 'enum'
     static const int var DOCTEST_UNUSED // NOLINT(fuchsia-statically-constructed-objects,cert-err58-cpp)
 #define DOCTEST_GLOBAL_NO_WARNINGS_END()                                                           \
     DOCTEST_CLANG_SUPPRESS_WARNING_POP                                                             \
-    DOCTEST_MSVC_SUPPRESS_WARNING_POP
+    DOCTEST_ICC_WINDOWS_SUPPRESS_WARNING_POP
 
 #ifndef DOCTEST_BREAK_INTO_DEBUGGER
 // should probably take a look at https://github.com/scottt/debugbreak
